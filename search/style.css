@@ -1,0 +1,51 @@
+/* div {
+    color: blue;
+    text-align: center;
+    height:50%;
+}
+ */
+.centered{
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-45%, -50%);
+}
+
+ .searchBar {
+    border-radius: 20px; 
+    width: 500px;
+    height: 40px;
+    border: 1px solid rgb(218, 217, 217);
+ }
+
+ .searchBar:hover{
+    box-shadow: 0 4px 4px 0 rgba(0,0,0,0.24), 0 4px 4px 0 rgba(0,0,0,0.19);
+ }
+ .mainLogo {
+    text-align:center;
+    height:92px;
+ }
+
+ .button{
+    padding: 8px 14px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: 1px solid rgb(82, 80, 80);
+
+ }
+
+ .button:hover {
+     background-color: rgb(226, 226, 226);
+    border: 1px solid black;
+ }
+ .buttonAdvanced{
+    padding: 8px 14px;
+    font-size: 12px;
+    background-color: #048bfa;
+    border-radius: 6px;
+    transition-duration: 0.4s;  
+ }
+ .buttonAdvanced:hover {
+    background-color: #015497;
+    color: white;
+ }
