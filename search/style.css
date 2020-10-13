@@ -27,24 +27,26 @@
  }
 
  .button{
-    padding: 8px 14px;
-    font-size: 12px;
-    border-radius: 6px;
-    border: 1px solid rgb(82, 80, 80);
-
- }
+   color: rgb(104, 102, 102);
+   font-size: 11pt;
+   padding: 10px 20px;
+   margin: 8px 5px;
+   border: 1px solid white;
+   border-radius: 5px;
+}
 
  .button:hover {
-     background-color: rgb(226, 226, 226);
-    border: 1px solid black;
+   color: rgb(68, 67, 67);
+   border: 1px solid silver;
  }
  .buttonAdvanced{
-    padding: 8px 14px;
-    font-size: 12px;
-    background-color: #048bfa;
-    border-radius: 6px;
-    transition-duration: 0.4s;  
- }
+   background-color:#4885ed;
+   color: white;
+   font-weight: bold;
+   font-size: 10pt;
+   padding: 8px;
+   border-radius: 5px;
+}
  .buttonAdvanced:hover {
     background-color: #015497;
     color: white;
