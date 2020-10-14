@@ -14,7 +14,7 @@
     {% endif%}
     <br>
 
-    <form action="{% url 'wiki:addNewPage' %}" method="POST">
+    <form action="{% url 'wiki:addNewPage' %}" method="POST" class="content">
         {% csrf_token %}
         {{ form }}
         <input type="submit">

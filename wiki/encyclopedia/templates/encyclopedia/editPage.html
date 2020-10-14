@@ -1,19 +1,24 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Encyclopedia - Edit page {{Title}}
-{% endblock title%}
+    Encyclopedia Edit Page
+{% endblock %}
+
 
 {% block body %}
-
-    <h1>Editing page: {{title}} </h1>
-    <br>
-
-    <form action="{% url 'wiki:editPage' %}" method="POST">
+    <h1> Hello world</h1>
+    
+    <form action="/wiki/edit/{{title}}" method="POST" class="content">
         {% csrf_token %}
         {{ form }}
+        <br>
         <input type="submit">
     </form>
+    
+    <form action="/wiki/del/{{title}} %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+{% endblock %}
 
-
-{% endblock body%}
+    

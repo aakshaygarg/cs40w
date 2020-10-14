@@ -40,3 +40,9 @@ def get_entry(title):
 def convertToHTML(content):
     md = Markdown()
     return md.convert(content)
+
+
+def deletePage(title):
+    filename = f"entries/{title}.md"
+    if default_storage.exists(filename):
+        default_storage.delete(filename)

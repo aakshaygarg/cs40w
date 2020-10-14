@@ -20,8 +20,10 @@ def viewPageReq(request, title):
     })
 
 class newPageForm(forms.Form):
-    title = forms.CharField(label="title")
+    title = forms.CharField(label="title", max_length=100)
     content = forms.CharField(label="content")
+
+    
 
 def addPage(request):
     if request.method=="POST":
@@ -51,18 +53,34 @@ def addPage(request):
     })
 
 def editPage(request, title):
+    
     if request.method=="POST":
-        content= util.get_entry(title)
+        form = newPageForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            util.save_entry(title, content)
+            return HttpResponse("Form Saved")
+        else:   
+            return HttpResponse("Form Invalid")
+    
+    if request.method=="GET":
+        content = util.get_entry(title)
         if content != None:
-            form=newPageForm()
-            form.title=title
-            form.content=content
-            return render(request, "encyclopedia/addNewPage.html", {
-                "form": form
+            form1 = newPageForm(initial={
+                'title':title,
+                'content':content
+                })
+            return render(request, "encyclopedia/editPage.html", {
+                "form": form1,
+                "title": title
+            })
+        else:
+            return render(request, "encyclopedia/viewPage.html", {
+                "title": "Page Doesnt Exist",
+                "content": "No Content"
             })
 
-
-
-def delPage(request):
-    if True:
-        return 1
+def delPage(request, title):
+    util.deletePage(title)
+    return HttpResponseRedirect(reverse("wiki:index"))        

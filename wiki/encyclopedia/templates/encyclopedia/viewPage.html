@@ -14,9 +14,7 @@
             {{content|safe }}
         {% endif %}
     </p>
-    <div>
-        <button action="{% url 'wiki:editPage' %}" method="POST" name={{title}}> Edit Page</button>
-        <button href="#" value ={{title}}> Delete Page</button>
-    </div>
+    
+    <a href="/wiki/edit/{{title}}">Edit</a>
     
 {% endblock %}
