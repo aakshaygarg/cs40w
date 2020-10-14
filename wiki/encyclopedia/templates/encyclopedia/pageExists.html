@@ -10,7 +10,7 @@
     </h1>
     <br><br><br>
 
-    <form action="{% url 'addNewPage' %}" method="post">
+    <form action="{% url 'wiki:addNewPage' %}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit">

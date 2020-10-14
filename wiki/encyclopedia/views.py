@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+
 from django import forms
 from . import util
-from markdown2 import Markdown
-
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -11,9 +11,12 @@ def index(request):
     })
 
 def viewPageReq(request, title):
+    content= util.get_entry(title)
+    if content != None:
+        content= util.convertToHTML(content)
     return render(request, "encyclopedia/viewPage.html", {
         "title": title,
-        "content": util.get_entry(title)
+        "content": content
     })
 
 class newPageForm(forms.Form):
@@ -27,21 +30,39 @@ def addPage(request):
             title = form.cleaned_data["title"]
             content = form.cleaned_data["content"]
 
-            if title.lower() in [entry.lower() for entry in util.list_entries()]:
-                return render(request, "encyclopedia/pageExists.html", {
+            if title.lower() in [existingTitle.lower() for existingTitle in util.list_entries()]:
+                return render(request, "encyclopedia/addNewPage.html", {
+                    "errorMessage": f"Page With Title: {title} - Already Exists",
                     "form": form
                 })
             else:
                 util.save_entry(title, content)
             
-            return render(request, "encyclopedia/index.html", {
-                "entries": util.list_entries()
-            })        
+            return HttpResponseRedirect(reverse("wiki:index"))        
         else:
             return render(request, "encyclopedia/addNewPage.html", {
+                "errorMessage": "Form not Valid",
                 "form": form
             })
 
     return render(request, "encyclopedia/addNewPage.html", {
+        "errorMessage": "none",
         "form": newPageForm()
     })
+
+def editPage(request, title):
+    if request.method=="POST":
+        content= util.get_entry(title)
+        if content != None:
+            form=newPageForm()
+            form.title=title
+            form.content=content
+            return render(request, "encyclopedia/addNewPage.html", {
+                "form": form
+            })
+
+
+
+def delPage(request):
+    if True:
+        return 1

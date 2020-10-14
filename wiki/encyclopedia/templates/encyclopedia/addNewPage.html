@@ -7,10 +7,14 @@
 
 {% block body %}
 
-    <h1>Create a New Page.</h1>
+    {% if errorMessage != "none" %}
+        <h1 style="color: red;"> {{errorMessage}}</h1>
+    {% else %}
+        <h1>Create a New Page.</h1>
+    {% endif%}
     <br>
 
-    <form action="{% url 'addNewPage' %}" method="post">
+    <form action="{% url 'wiki:addNewPage' %}" method="POST">
         {% csrf_token %}
         {{ form }}
         <input type="submit">
