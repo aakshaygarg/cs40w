@@ -19,10 +19,12 @@ def viewPageReq(request, title):
     content= util.get_entry(title)
     if content != None:
         content= util.convertToHTML(content)
-    return render(request, "encyclopedia/viewPage.html", {
-        "title": title,
-        "content": content
-    })    
+        return render(request, "encyclopedia/viewPage.html", {
+            "title": title,
+            "content": content
+        })    
+    else:
+        return HttpResponseRedirect(reverse("wiki:dispMessage", kwargs={"message": "Page does not exist"}))
 
 def addPage(request):
     if request.method=="POST":
@@ -61,7 +63,7 @@ def editPage(request, title):
             util.save_entry(title, content)
             return HttpResponseRedirect(reverse("wiki:viePageRequest", kwargs={"title":title}))
         else:   
-            return HttpResponse("Form Invalid")
+            return HttpResponseRedirect(reverse("wiki:dispMessage", kwargs={"message": "Entry not Valid"}))
     
     if request.method=="GET":
         content = util.get_entry(title)
@@ -75,10 +77,7 @@ def editPage(request, title):
                 "title": title
             })
         else:
-            return render(request, "encyclopedia/viewPage.html", {
-                "title": "Page Doesnt Exist",
-                "content": "No Content"
-            })
+            return HttpResponseRedirect(reverse("wiki:dispMessage", kwargs={"message": "Page does not exist"}))
 
 def delPage(request, title):
     util.deletePage(title)
@@ -88,5 +87,10 @@ def delPage(request, title):
 def randomPage(request):
     entryList = util.list_entries()
     randomPage = random.choice(entryList)
-    # return HttpResponse("hale luia")
     return HttpResponseRedirect(reverse("wiki:viePageRequest", kwargs={'title': randomPage}))
+
+
+def dispMessage(request, message):
+    return render(request, "encyclopedia/message.html", {
+            "message" : message
+    })
